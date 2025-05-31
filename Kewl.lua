@@ -320,7 +320,7 @@ function lib:Window(text)
 			button.Font = Enum.Font.Code
 			button.Text = text
 			button.TextColor3 = Color3.fromRGB(255, 255, 255)
-			button.TextSize = 14.000
+			button.TextSize = 12
 			button.Size = UDim2.new(1, 0, 1, 0)
 			button.ClipsDescendants = true
 			Frame.Size = UDim2.new(0, button.TextBounds.X + 15, 0, 28)
