@@ -317,7 +317,6 @@ function lib:Window(text)
 			button.Parent = Frame
 			button.BackgroundTransparency = 1
 			button.BorderSizePixel = 0
-			button.AutoButtonColor = false
 			button.Font = Enum.Font.Code
 			button.Text = text
 			button.TextColor3 = Color3.fromRGB(255, 255, 255)
