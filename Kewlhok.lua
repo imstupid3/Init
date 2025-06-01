@@ -1,5 +1,7 @@
 
 
+
+-- insert troll face, memcorruptv2
 local library = { 
 	flags = { }, 
 	items = { },
@@ -2597,7 +2599,7 @@ function library:CreateWindow(name, size, hidebutton)
                         Item.TextStrokeTransparency = 1
                         dropdown.ItemsFrame.CanvasSize = dropdown.ItemsFrame.CanvasSize + UDim2.fromOffset(0, Item.AbsoluteSize.Y)
     
-                        Item.MouseButton1Down:Connect(function()
+                        Item.MouseButton1Click:Connect(function()
                             if dropdown.multichoice then
                                 if dropdown:isSelected(v) then
                                     for i2, v2 in pairs(dropdown.values) do
@@ -3147,7 +3149,7 @@ function library:CreateWindow(name, size, hidebutton)
                     Item.TextStrokeTransparency = 1
                     dropdown.ItemsFrame.CanvasSize = dropdown.ItemsFrame.CanvasSize + UDim2.fromOffset(0, Item.AbsoluteSize.Y)
 
-                    Item.MouseButton1Down:Connect(function()
+                    Item.MouseButton1Click:Connect(function()
                         if dropdown.multichoice then
                             if dropdown:isSelected(v) then
                                 for i2, v2 in pairs(dropdown.values) do
