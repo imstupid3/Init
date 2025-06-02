@@ -109,16 +109,9 @@ function library:CreateWatermark(name, position)
     watermark.Visible = true
     watermark.text = " " .. name:gsub("{game}", gamename):gsub("{fps}", "0 FPS") .. " "
 
-    watermark.main = Instance.new("ScreenGui", coregui)
+    watermark.main = Instance.new("ScreenGui")
     watermark.main.Name = "Watermark"
-    if syn then
-        syn.protect_gui(watermark.main)
-    end
-
-    if getgenv().watermark then
-        getgenv().watermark:Remove()
-    end
-    getgenv().watermark = watermark.main
+    protectUI(watermark.main)
     
     watermark.mainbar = Instance.new("Frame", watermark.main)
     watermark.mainbar.Name = "Main"
@@ -723,7 +716,7 @@ function library:CreateWindow(name, size, hidebutton)
                 return button
             end
 
-            function sector:AddLabel(text)
+            function sector:AddLabel(text, textsize, textcolor)
                 local label = { }
 
                 label.Main = Instance.new("TextLabel", sector.Items)
@@ -734,15 +727,11 @@ function library:CreateWindow(name, size, hidebutton)
                 label.Main.AutomaticSize = Enum.AutomaticSize.XY
                 label.Main.Font = window.theme.font
                 label.Main.Text = text
-                label.Main.TextColor3 = window.theme.itemscolor
-                label.Main.TextSize = 15
+                label.Main.TextColor3 = textcolor or window.theme.itemscolor
+                label.Main.TextSize = textsize or 15
                 label.Main.TextStrokeTransparency = 1
                 label.Main.TextXAlignment = Enum.TextXAlignment.Left
-                updateevent.Event:Connect(function(theme)
-                    label.Main.Font = theme.font
-                    label.Main.TextColor3 = theme.itemscolor
-                end)
-
+                
                 function label:Set(value)
                     label.Main.Text = value
                 end
@@ -2931,12 +2920,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.Label.TextSize = 15
                 dropdown.Label.TextStrokeTransparency = 1
                 dropdown.Label.TextXAlignment = Enum.TextXAlignment.Left
-
-                updateevent.Event:Connect(function(theme)
-                    dropdown.Label.Font = theme.font
-                    dropdown.Label.TextColor3 = theme.itemscolor
-                end)
-
+                
                 dropdown.Main = Instance.new("TextButton", dropdown.MainBack)
                 dropdown.Main.Name = "dropdown"
                 dropdown.Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -2950,10 +2934,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.Main.TextColor3 = Color3.fromRGB(255, 255, 255)
                 dropdown.Main.TextSize = 15
                 dropdown.Main.TextXAlignment = Enum.TextXAlignment.Left
-                updateevent.Event:Connect(function(theme)
-                    dropdown.Main.Font = theme.font
-                end)
-
+                
                 dropdown.Gradient = Instance.new("UIGradient", dropdown.Main)
                 dropdown.Gradient.Rotation = 90
                 dropdown.Gradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(49, 49, 49)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(39, 39, 39))}
@@ -2970,10 +2951,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.SelectedLabel.TextSize = 15
                 dropdown.SelectedLabel.TextStrokeTransparency = 1
                 dropdown.SelectedLabel.TextXAlignment = Enum.TextXAlignment.Left
-                updateevent.Event:Connect(function(theme)
-                    dropdown.SelectedLabel.Font = theme.font
-                end)
-
+                
                 dropdown.Nav = Instance.new("ImageButton", dropdown.Main)
                 dropdown.Nav.Name = "navigation"
                 dropdown.Nav.BackgroundTransparency = 1
@@ -2992,10 +2970,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.BlackOutline2.BorderSizePixel = 0
                 dropdown.BlackOutline2.BackgroundColor3 = window.theme.outlinecolor2
                 dropdown.BlackOutline2.Position = UDim2.fromOffset(-3, -3)
-                updateevent.Event:Connect(function(theme)
-                    dropdown.BlackOutline2.BackgroundColor3 = theme.outlinecolor2
-                end)
-
+                
                 dropdown.Outline = Instance.new("Frame", dropdown.Main)
                 dropdown.Outline.Name = "blackline"
                 dropdown.Outline.ZIndex = 4
@@ -3003,10 +2978,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.Outline.BorderSizePixel = 0
                 dropdown.Outline.BackgroundColor3 = window.theme.outlinecolor
                 dropdown.Outline.Position = UDim2.fromOffset(-2, -2)
-                updateevent.Event:Connect(function(theme)
-                    dropdown.Outline.BackgroundColor3 = theme.outlinecolor
-                end)
-
+                
                 dropdown.BlackOutline = Instance.new("Frame", dropdown.Main)
                 dropdown.BlackOutline.Name = "blackline"
                 dropdown.BlackOutline.ZIndex = 4
@@ -3014,10 +2986,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.BlackOutline.BorderSizePixel = 0
                 dropdown.BlackOutline.BackgroundColor3 = window.theme.outlinecolor2
                 dropdown.BlackOutline.Position = UDim2.fromOffset(-1, -1)
-                updateevent.Event:Connect(function(theme)
-                    dropdown.BlackOutline.BackgroundColor3 = theme.outlinecolor2
-                end)
-
+                
                 dropdown.ItemsFrame = Instance.new("ScrollingFrame", dropdown.Main)
                 dropdown.ItemsFrame.Name = "itemsframe"
                 dropdown.ItemsFrame.BorderSizePixel = 0
@@ -3047,10 +3016,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.BlackOutline2Items.BackgroundColor3 = window.theme.outlinecolor2
                 dropdown.BlackOutline2Items.Position = dropdown.ItemsFrame.Position + UDim2.fromOffset(-3, -3)
                 dropdown.BlackOutline2Items.Visible = false
-                updateevent.Event:Connect(function(theme)
-                    dropdown.BlackOutline2Items.BackgroundColor3 = theme.outlinecolor2
-                end)
-
+                
                 dropdown.OutlineItems = Instance.new("Frame", dropdown.Main)
                 dropdown.OutlineItems.Name = "blackline"
                 dropdown.OutlineItems.ZIndex = 7
@@ -3059,10 +3025,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.OutlineItems.BackgroundColor3 = window.theme.outlinecolor
                 dropdown.OutlineItems.Position = dropdown.ItemsFrame.Position + UDim2.fromOffset(-2, -2)
                 dropdown.OutlineItems.Visible = false
-                updateevent.Event:Connect(function(theme)
-                    dropdown.OutlineItems.BackgroundColor3 = theme.outlinecolor
-                end)
-
+                
                 dropdown.BlackOutlineItems = Instance.new("Frame", dropdown.Main)
                 dropdown.BlackOutlineItems.Name = "blackline"
                 dropdown.BlackOutlineItems.ZIndex = 7
@@ -3071,10 +3034,7 @@ function library:CreateWindow(name, size, hidebutton)
                 dropdown.BlackOutlineItems.BackgroundColor3 = window.theme.outlinecolor2
                 dropdown.BlackOutlineItems.Position = dropdown.ItemsFrame.Position + UDim2.fromOffset(-1, -1)
                 dropdown.BlackOutlineItems.Visible = false
-                updateevent.Event:Connect(function(theme)
-                    dropdown.BlackOutlineItems.BackgroundColor3 = theme.outlinecolor2
-                end)
-
+                
                 dropdown.IgnoreBackButtons = Instance.new("TextButton", dropdown.Main)
                 dropdown.IgnoreBackButtons.BackgroundTransparency = 1
                 dropdown.IgnoreBackButtons.BorderSizePixel = 0
@@ -3221,6 +3181,27 @@ function library:CreateWindow(name, size, hidebutton)
                         item:Remove()
                     end
                 end 
+                
+                function dropdown:Refresh(value)
+				    for _, item in pairs(dropdown.ItemsFrame:GetChildren()) do
+				        if item:IsA("TextButton") then
+				            item:Destroy()
+				        end
+				    end
+				
+				    dropdown.items = {}
+				    dropdown.values = value -- update the dropdown's internal values
+				
+				    for _, v in pairs(value) do
+				        dropdown:Add(v)
+				    end
+				
+				    if dropdown.multichoice then
+				        dropdown:updateText(table.concat(dropdown.values, ", "))
+				    else
+				        dropdown:updateText(dropdown.values[1] or "")
+				    end
+				end
 
                 for i,v in pairs(dropdown.defaultitems) do
                     dropdown:Add(v)
