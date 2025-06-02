@@ -1,7 +1,6 @@
 
 
 
--- insert troll face, memcorruptv2
 local library = { 
 	flags = { }, 
 	items = { },
@@ -253,10 +252,10 @@ function library:CreateWindow(name, size, hidebutton)
         window.theme = (theme or library.theme)
     end
 
-    window.Main = Instance.new("ScreenGui")
+    window.Main = Instance.new("ScreenGui", game.CoreGui)
     window.Main.Name = name
     window.Main.DisplayOrder = 15
-    protectUI(window.Main)
+    --protectUI(window.Main)
 
     local dragging, dragInput, dragStart, startPos
     uis.InputChanged:Connect(function(input)
@@ -438,18 +437,11 @@ function library:CreateWindow(name, size, hidebutton)
         tab.TabButton.Size = UDim2.fromOffset(size.X + 15, window.TabList.AbsoluteSize.Y - 1)
         tab.TabButton.Name = tab.name
         tab.TabButton.TextSize = window.theme.fontsize
-        updateevent.Event:Connect(function(theme)
-            local size = textservice:GetTextSize(tab.name, theme.fontsize, theme.font, Vector2.new(200,300))
-            tab.TabButton.TextColor3 = tab.TabButton.Name == "SelectedTab" and theme.accentcolor or theme.tabstextcolor
-            tab.TabButton.Font = theme.font
-            tab.TabButton.Size = UDim2.fromOffset(size.X + 15, window.TabList.AbsoluteSize.Y - 1)
-            tab.TabButton.TextSize = theme.fontsize
-        end)
-
+        
         tab.Left = Instance.new("ScrollingFrame", window.BackgroundImage) 
         tab.Left.Name = "leftside"
         tab.Left.BorderSizePixel = 0
-        tab.Left.Size = UDim2.fromOffset(window.size.X.Offset / 2, window.size.Y.Offset - (window.Topbar.AbsoluteSize.Y + 1))
+        tab.Left.Size = UDim2.fromOffset(window.size.X.Offset / 2, window.size.Y.Offset - window.TabList.AbsoluteSize.Y - (window.Topbar.AbsoluteSize.Y + 1))
         tab.Left.BackgroundTransparency = 1
         tab.Left.Visible = false
         tab.Left.ScrollBarThickness = 0
@@ -472,7 +464,7 @@ function library:CreateWindow(name, size, hidebutton)
         tab.Right.ScrollingDirection = "Y"
         tab.Right.Visible = false
         tab.Right.BorderSizePixel = 0
-        tab.Right.Size = UDim2.fromOffset(window.size.X.Offset / 2, window.size.Y.Offset - (window.Topbar.AbsoluteSize.Y + 1))
+        tab.Right.Size = UDim2.fromOffset(window.size.X.Offset / 2, window.size.Y.Offset - window.TabList.AbsoluteSize.Y - (window.Topbar.AbsoluteSize.Y + 1))
         tab.Right.BackgroundTransparency = 1
         tab.Right.Position = tab.Left.Position + UDim2.fromOffset(tab.Left.AbsoluteSize.X, 0)
 
@@ -3579,6 +3571,5 @@ function library:CreateWindow(name, size, hidebutton)
 
     return window
 end
-
 
 return library
