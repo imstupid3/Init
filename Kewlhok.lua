@@ -531,7 +531,7 @@ function library:CreateWindow(name, size, hidebutton)
             sector.Main.Name = sector.name:gsub(" ", "") .. "Sector"
             sector.Main.BorderSizePixel = 0
             sector.Main.ZIndex = 4
-            sector.Main.Size = UDim2.fromOffset(window.size.X.Offset / 2 - 17, 20)
+            sector.Main.Size = UDim2.fromOffset(window.size.X.Offset / 2 - 17, window.size.Y.Offset - 52)
             sector.Main.BackgroundColor3 = window.theme.sectorcolor
             
             sector.Line = Instance.new("Frame", sector.Main)
@@ -619,7 +619,7 @@ function library:CreateWindow(name, size, hidebutton)
             table.insert(sector.side:lower() == "left" and tab.SectorsLeft or tab.SectorsRight, sector)
 
             function sector:FixSize()
-                sector.Main.Size = UDim2.fromOffset(window.size.X.Offset / 2 - 17, sector.ListLayout.AbsoluteContentSize.Y + 22)
+                sector.Main.Size = UDim2.fromOffset(window.size.X.Offset / 2 - 17, math.clamp(sector.ListLayout.AbsoluteContentSize.Y + 22, 0, window.size.Y.Offset - 52))
                 local sizeleft, sizeright = 0, 0
                 for i,v in pairs(tab.SectorsLeft) do
                     sizeleft = sizeleft + v.Main.AbsoluteSize.Y
@@ -3579,6 +3579,5 @@ function library:CreateWindow(name, size, hidebutton)
 
     return window
 end
-
 
 return library
