@@ -252,10 +252,10 @@ function library:CreateWindow(name, size, hidebutton)
         window.theme = (theme or library.theme)
     end
 
-    window.Main = Instance.new("ScreenGui", game.CoreGui)
+    window.Main = Instance.new("ScreenGui")
     window.Main.Name = name
     window.Main.DisplayOrder = 15
-    --protectUI(window.Main)
+    protectUI(window.Main)
 
     local dragging, dragInput, dragStart, startPos
     uis.InputChanged:Connect(function(input)
@@ -719,7 +719,6 @@ function library:CreateWindow(name, size, hidebutton)
                 label.Main.AutomaticSize = Enum.AutomaticSize.XY
                 label.Main.Font = window.theme.font
                 label.Main.Text = text
-                label.Main.TextScaled = true
                 label.Main.TextColor3 = window.theme.itemscolor
                 label.Main.TextSize = 15
                 label.Main.TextStrokeTransparency = 1
@@ -3569,7 +3568,5 @@ function library:CreateWindow(name, size, hidebutton)
 
     return window
 end
-
-
 
 return library
