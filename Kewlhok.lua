@@ -708,7 +708,7 @@ function library:CreateWindow(name, size, hidebutton)
                 return button
             end
 
-            function sector:AddLabel(text, textsize, textcolor)
+            function sector:AddLabel(text)
                 local label = { }
 
                 label.Main = Instance.new("TextLabel", sector.Items)
@@ -719,8 +719,9 @@ function library:CreateWindow(name, size, hidebutton)
                 label.Main.AutomaticSize = Enum.AutomaticSize.XY
                 label.Main.Font = window.theme.font
                 label.Main.Text = text
-                label.Main.TextColor3 = textcolor or window.theme.itemscolor
-                label.Main.TextSize = textsize or 15
+                label.Main.TextScaled = true
+                label.Main.TextColor3 = window.theme.itemscolor
+                label.Main.TextSize = 15
                 label.Main.TextStrokeTransparency = 1
                 label.Main.TextXAlignment = Enum.TextXAlignment.Left
                 
@@ -1849,10 +1850,7 @@ function library:CreateWindow(name, size, hidebutton)
                 textbox.Label.TextSize = 15
                 textbox.Label.TextStrokeTransparency = 1
                 textbox.Label.TextXAlignment = Enum.TextXAlignment.Left
-                updateevent.Event:Connect(function(theme)
-                    textbox.Label.Font = theme.font
-                end)
-
+                
                 textbox.Holder = Instance.new("Frame", sector.Items)
                 textbox.Holder.Name = "holder"
                 textbox.Holder.ZIndex = 5
@@ -3571,5 +3569,7 @@ function library:CreateWindow(name, size, hidebutton)
 
     return window
 end
+
+
 
 return library
